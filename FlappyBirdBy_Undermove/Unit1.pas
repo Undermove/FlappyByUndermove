@@ -1,0 +1,248 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, PngImage, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Image1: TImage;
+    Timer1: TTimer;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Image7: TImage;
+    Image8: TImage;
+    Image9: TImage;
+    Label1: TLabel;
+    Image10: TImage;
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Image10Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  // переменные, которые содержат в себе картинки
+  Png_Bird: TPngImage;
+  Png_Ground: TPngImage;
+  Png_Background : TPngImage;
+  Png_Tube1 : TPngImage;
+  Png_Tube2 : TPngImage;
+  Png_Start : TPngImage;
+  // переменная скорости
+  v: integer;
+  // переменная, в которой хранится количество очков
+  score: integer;
+  // флаг, который проверяет пролетели мы через трубу или нет
+  flag : boolean;
+
+implementation
+
+{$R *.dfm}
+
+// Код, который выполняется перед началом игры
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+// выставляем нулевую начальную скорость
+v := 0;
+// делаем так чтобы картинки не мерцали при движении
+Form1.DoubleBuffered := true;
+
+// загружаем в картинки изображения из ресурсов
+// загружаем изображение птицы
+Png_Bird := TPngImage.Create;
+Png_Bird.LoadFromResourceName(Hinstance, 'PngImage_1');
+Image1.Picture.Graphic := Png_Bird;
+Png_Bird.Free;
+
+// загружаем изображения земли
+Png_Ground := TPngImage.Create;
+Png_Ground.LoadFromResourceName(Hinstance, 'PngImage_2');
+Image2.Picture.Graphic := Png_Ground;
+Image3.Picture.Graphic := Png_Ground;
+Image4.Picture.Graphic := Png_Ground;
+Png_Ground.Free;
+
+// размещаем землю одну за другой
+Image4.Left := Image2.Width + Image3.Width;
+Image4.Top := Image2.Top;
+
+// загружаем изображения фона
+Png_Background := TPngImage.Create;
+Png_Background.LoadFromResourceName(Hinstance, 'PngImage_3');
+Image5.Picture.Graphic := Png_Background;
+Image6.Picture.Graphic := Png_Background;
+Image7.Picture.Graphic := Png_Background;
+Png_Background.Free;
+
+// загружаем изображение нижней трубы
+Png_Tube1 := TPngImage.Create;
+Png_Tube1.LoadFromResourceName(Hinstance, 'PngImage_4');
+Image8.Picture.Graphic := Png_Tube1;
+Png_Tube1.Free;
+
+// загружаем изображение верхней трубы
+Png_Tube2 := TPngImage.Create;
+Png_Tube2.LoadFromResourceName(Hinstance, 'PngImage_5');
+Image9.Picture.Graphic := Png_Tube2;
+Png_Tube2.Free;
+
+// размещаем изображения фонов одно за другим
+Image7.Left := Image5.Width + Image6.Width;
+Image7.Top := Image6.Top;
+
+// размещаем трубы
+Image8.Left := 400;
+Image9.Left := Image8.Left;
+
+// загружаем изображение кнопки старт из ресурсов
+Png_Start := TPngImage.Create;
+Png_Start.LoadFromResourceName(Hinstance, 'PngImage_6');
+Image10.Picture.Graphic := Png_Start;
+Png_Start.Free;
+end;
+
+// если нажата клавиша ПРОБЕЛ, то ускоряем нашу птичку вверх с силой 20
+procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if(Key = VK_SPACE) then
+  begin
+    v := v - 20;
+  end;
+  if(Key = VK_ESCAPE) then
+  begin
+    timer1.Enabled := false;
+    Image10.Visible := true;
+  end;
+end;
+
+// запускаем игру при клике на кнопку старт
+procedure TForm1.Image10Click(Sender: TObject);
+begin
+  Timer1.Enabled := true;
+  Image10.Visible := false;
+end;
+
+// основной тамер в котором содержится логика движения игрока, труб, фона, земли, логика столкновений
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  // физика падения птички
+  v := v+1;
+  Image1.Top := Image1.Top + v;
+
+  // не даем птичке улететь выше верхней границы
+  if(Image1.Top < 0) then
+  begin
+    Image1.Top := 0;
+    v := 0;
+  end;
+
+  // если птичка упала на землю, то возвращаем её вверх
+  if(Image1.Top + Image1.Height > Image2.Top) then
+  begin
+    v := 0;
+    Image1.Top := 0;
+    score := 0;
+    Label1.Caption := IntToStr(score);
+  end;
+
+  // двигаем землю
+  Image2.Left := Image2.Left - 4;
+  Image3.Left := Image3.Left - 4;
+  Image4.Left := Image4.Left - 4;
+
+  // перемещаем землю в правый край если зашла за левый
+  if(Image2.Left <= -Image2.Width) then
+  begin
+    Image2.Left := Form1.Width;
+  end;
+  if(Image3.Left <= -Image3.Width) then
+  begin
+    Image3.Left := Form1.Width;
+  end;
+  if(Image4.Left <= -Image4.Width) then
+  begin
+    Image4.Left := Form1.Width;
+  end;
+
+  // двигаем фон
+  Image5.Left := Image5.Left - 1;
+  Image6.Left := Image6.Left - 1;
+  Image7.Left := Image7.Left - 1;
+
+  // если фон уходит за левый край, то перемещаем его в правый
+  if(Image5.Left <= -Image5.Width) then
+  begin
+    Image5.Left := Form1.Width;
+  end;
+  if(Image6.Left <= -Image6.Width) then
+  begin
+    Image6.Left := Form1.Width;
+  end;
+  if(Image7.Left <= -Image7.Width) then
+  begin
+    Image7.Left := Form1.Width;
+  end;
+
+  // логика движения труб
+  Image8.Left := Image8.Left - 4;
+  Image9.Left := Image8.Left;
+
+  // телепортация труб в правый край и размещение на рандомной высоте
+  if(Image8.Left <= -Image8.Width) then
+  begin
+    Image8.Left := Form1.Width;
+    Image8.Top := Random(241) + 200;
+    Image9.Top := Image8.Top - 400 - 150;
+    flag := false;
+  end;
+
+  // столкновение птички с нижней трубой
+  if(Image1.Left + Image1.Width > Image8.Left )
+  and
+  (Image1.Left < Image8.Left + Image8.Width)
+  and
+  (Image1.Top + Image1.Height > Image8.Top)
+  then
+  begin
+    Image1.Top := 0;
+    V := 0;
+    score := 0;
+    Label1.Caption := IntToStr(score);
+  end;
+
+  // столкновение птички с верхней трубой
+  if(Image1.Left + Image1.Width > Image9.Left )
+  and
+  (Image1.Left < Image9.Left + Image9.Width)
+  and
+  (Image1.Top < Image9.Top + Image9.Height)
+  then
+  begin
+    Image1.Top := 0;
+    V := 0;
+    score := 0;
+    Label1.Caption := IntToStr(score);
+  end;
+
+  // логика прибавления очков
+  if(Image1.Left > Image8.Left + Image8.Width) and (flag = false) then
+  begin
+    score := score + 1;
+    Label1.Caption := IntToStr(score);
+    flag := true;
+  end;
+
+end;
+
+end.

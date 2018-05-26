@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018.02.17 11:07:43.865.pas,C:\Users\Преподаватель\Documents\RAD Studio\Projects\Unit1.pas=C:\Delphi_Afonchenko\lesson_20_timer.pas</Transaction>
+    <Transaction>2018.02.17 11:07:43.865.dfm,C:\Users\Преподаватель\Documents\RAD Studio\Projects\Unit1.dfm=C:\Delphi_Afonchenko\lesson_20_timer.dfm</Transaction>
+    <Transaction>2018.02.17 11:08:07.918.dproj,C:\Users\Преподаватель\Documents\RAD Studio\Projects\Project1.dproj=C:\Delphi_Afonchenko\lesson_20_timer\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

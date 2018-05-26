@@ -1,0 +1,96 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'Form1'
+  ClientHeight = 269
+  ClientWidth = 315
+  Color = clBtnText
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 24
+    Top = 24
+    Width = 100
+    Height = 144
+    Caption = '00'
+    Color = clBlack
+    Font.Charset = OEM_CHARSET
+    Font.Color = clWhite
+    Font.Height = -200
+    Font.Name = 'Terminal'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 176
+    Top = 24
+    Width = 100
+    Height = 144
+    Caption = '00'
+    Font.Charset = OEM_CHARSET
+    Font.Color = clWhite
+    Font.Height = -200
+    Font.Name = 'Terminal'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 120
+    Top = 8
+    Width = 50
+    Height = 144
+    Caption = ':'
+    Font.Charset = OEM_CHARSET
+    Font.Color = clRed
+    Font.Height = -200
+    Font.Name = 'Terminal'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 297
+    Top = 8
+    Width = 10
+    Height = 18
+    Caption = 'X'
+    Font.Charset = OEM_CHARSET
+    Font.Color = clWhite
+    Font.Height = -19
+    Font.Name = 'Terminal'
+    Font.Style = []
+    ParentFont = False
+    OnClick = Label4Click
+    OnMouseEnter = Label4MouseEnter
+    OnMouseLeave = Label4MouseLeave
+  end
+  object Button1: TButton
+    Left = 24
+    Top = 184
+    Width = 252
+    Height = 25
+    Caption = 'Start timer'
+    Font.Charset = OEM_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Terminal'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Timer1: TTimer
+    Enabled = False
+    OnTimer = Timer1Timer
+    Left = 8
+    Top = 8
+  end
+end

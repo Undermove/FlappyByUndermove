@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018.03.03 11:11:13.966.pas,C:\Users\Преподаватель\Documents\RAD Studio\Projects\Unit1.pas=C:\Delphi_Afonchenko\Snale_project_Undermove\Unit1.pas</Transaction>
+    <Transaction>2018.03.03 11:11:13.966.dfm,C:\Users\Преподаватель\Documents\RAD Studio\Projects\Unit1.dfm=C:\Delphi_Afonchenko\Snale_project_Undermove\Unit1.dfm</Transaction>
+    <Transaction>2018.03.03 11:11:15.094.dproj,C:\Users\Преподаватель\Documents\RAD Studio\Projects\Project1.dproj=C:\Delphi_Afonchenko\Snale_project_Undermove\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

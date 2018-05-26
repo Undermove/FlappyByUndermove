@@ -1,0 +1,110 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, PngImage;
+
+type
+  TForm1 = class(TForm)
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Image7: TImage;
+    Image8: TImage;
+    Image9: TImage;
+    Timer1: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  Png1: TPngImage;
+  Png2: TPngImage;
+  Png3: TPngImage;
+  Png4: TPngImage;
+  Png5: TPngImage;
+  Png6: TPngImage;
+  Png7: TPngImage;
+  Png8: TPngImage;
+  Png9: TPngImage;
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  Png1 := TPngImage.Create;
+  Png1.LoadFromResourceName(Hinstance, 'PngImage_2');
+  Image1.Picture.Graphic := Png1;
+  Png1.Free;
+
+  Png2 := TPngImage.Create;
+  Png2.LoadFromResourceName(Hinstance, 'PngImage_3');
+  Image2.Picture.Graphic := Png2;
+  Png2.Free;
+
+  Png3 := TPngImage.Create;
+  Png3.LoadFromResourceName(Hinstance, 'PngImage_4');
+  Image3.Picture.Graphic := Png3;
+  Png3.Free;
+
+  Png4 := TPngImage.Create;
+  Png4.LoadFromResourceName(Hinstance, 'PngImage_5');
+  Image4.Picture.Graphic := Png4;
+  Png4.Free;
+
+  Png5 := TPngImage.Create;
+  Png5.LoadFromResourceName(Hinstance, 'PngImage_6');
+  Image5.Picture.Graphic := Png5;
+  Png5.Free;
+
+  Png6 := TPngImage.Create;
+  Png6.LoadFromResourceName(Hinstance, 'PngImage_7');
+  Image6.Picture.Graphic := Png6;
+  Png6.Free;
+
+  Png7 := TPngImage.Create;
+  Png7.LoadFromResourceName(Hinstance, 'PngImage_8');
+  Image7.Picture.Graphic := Png7;
+  Png7.Free;
+
+  Png8 := TPngImage.Create;
+  Png8.LoadFromResourceName(Hinstance, 'PngImage_9');
+  Image8.Picture.Graphic := Png8;
+  Png8.Free;
+
+  Png9 := TPngImage.Create;
+  Png9.LoadFromResourceName(Hinstance, 'PngImage_1');
+  Image9.Picture.Graphic := Png9;
+  Png9.Free;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Image1.Left := Image1.Left + Random(11);
+  Image2.Left := Image2.Left + Random(11);
+  Image3.Left := Image3.Left + Random(11);
+  Image4.Left := Image4.Left + Random(11);
+  Image5.Left := Image5.Left + Random(11);
+  Image6.Left := Image6.Left + Random(11);
+  Image7.Left := Image7.Left + Random(11);
+  Image8.Left := Image8.Left + Random(11);
+
+  if(Image1.Left > 600) then
+  begin
+    Timer1.Enabled := false;
+    ShowMessage('Улитка 1 победила!!!');
+  end;
+end;
+
+end.

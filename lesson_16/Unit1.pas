@@ -1,0 +1,83 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Timer1: TTimer;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    Button8: TButton;
+    Button9: TButton;
+    Button10: TButton;
+    Button11: TButton;
+    Button12: TButton;
+    Button13: TButton;
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  N: integer;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  N := 0;
+end;
+
+procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  N := N - 40;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Button1.Top := Button1.Top + N;
+  Button2.Top := Button2.Top - N;
+  Button3.Top := Button3.Top + N;
+  Button4.Top := Button4.Top - N;
+  Button5.Top := Button5.Top + N;
+  Button6.Top := Button6.Top - N;
+  Button7.Top := Button7.Top + N;
+
+  Button8.Left := Button8.Left + N;
+  Button9.Left := Button9.Left - N;
+  Button10.Left := Button10.Left + N;
+  Button11.Left := Button11.Left - N;
+  Button12.Left := Button12.Left + N;
+  Button13.Left := Button13.Left - N;
+
+  if(Button1.Top < 0) then
+  begin
+    N := 0;
+  end;
+
+  if (Button1.Top > 500) then
+  begin
+    N := 0;
+  end;
+
+  N := N + 1;
+end;
+
+end.
